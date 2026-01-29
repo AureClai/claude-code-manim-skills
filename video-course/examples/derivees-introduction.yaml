@@ -1,0 +1,419 @@
+# Exemple de projet : Introduction aux Dérivées
+# Durée estimée : ~5 minutes
+# Public : Lycéens / étudiants en première année
+
+metadata:
+  title: "Introduction aux Dérivées"
+  description: "Comprendre intuitivement le concept de dérivée à travers des visualisations"
+  language: "fr"
+  target_audience: "Lycéens, étudiants en mathématiques"
+  tags: ["calculus", "dérivée", "introduction", "visualisation"]
+  estimated_duration: "5min"
+
+style:
+  quality: "h"
+  fps: 60
+
+  color_palette:
+    primary: "BLUE"
+    secondary: "YELLOW"
+    accent: "RED"
+    background: "BLACK"
+    text: "WHITE"
+    positive: "GREEN"
+    negative: "RED"
+
+  typography:
+    title_size: 72
+    subtitle_size: 48
+    text_size: 36
+
+  transitions:
+    default: "fade"
+    duration: 0.5
+
+scenes:
+  # ============================================
+  # INTRODUCTION (30 secondes)
+  # ============================================
+
+  - id: "title"
+    name: "Titre principal"
+    type: "title_card"
+    duration: "5s"
+    content:
+      title: "Les Dérivées"
+      subtitle: "Comprendre le changement instantané"
+      animation: "write"
+    transition_out: "fade"
+
+  - id: "question"
+    name: "La question fondamentale"
+    type: "animation"
+    content:
+      concept: |
+        Afficher la question centrale de manière dramatique :
+        "Comment mesurer un changement à un instant précis ?"
+
+        Animation suggérée :
+        1. Fond noir, texte qui apparaît progressivement
+        2. Chaque mot apparaît avec un léger délai
+        3. "instant précis" en couleur accent (rouge)
+        4. Point d'interrogation final avec effet d'emphase
+
+      phases:
+        - name: "buildup"
+          description: "Apparition progressive de la question"
+          duration: "4s"
+        - name: "emphasis"
+          description: "Mise en évidence de 'instant précis'"
+          duration: "2s"
+
+    transition_out: "fade"
+
+  # ============================================
+  # CHAPITRE 1 : LE PROBLÈME (60 secondes)
+  # ============================================
+
+  - id: "chapter1_title"
+    name: "Chapitre 1"
+    type: "title_card"
+    duration: "3s"
+    content:
+      title: "1. Le Problème"
+      subtitle: "Vitesse moyenne vs vitesse instantanée"
+      animation: "fade_in"
+    transition_out: "fade"
+
+  - id: "car_example"
+    name: "Exemple de la voiture"
+    type: "animation"
+    content:
+      concept: |
+        Illustrer la différence entre vitesse moyenne et instantanée
+        avec une voiture sur une route.
+
+        Éléments :
+        - Route horizontale avec marquage
+        - Voiture qui accélère (mouvement non-uniforme)
+        - Affichage de la distance parcourue
+        - Chronomètre
+
+        Animation :
+        1. Voiture part du repos, accélère
+        2. Afficher "Distance: 100m, Temps: 10s"
+        3. Calculer "Vitesse moyenne = 10 m/s"
+        4. Zoomer sur un instant : "Mais quelle vitesse À CET INSTANT ?"
+        5. Montrer le compteur qui varie
+
+      elements:
+        - type: "custom"
+          description: "route avec voiture animée"
+        - type: "text"
+          content: "Vitesse moyenne = Distance / Temps"
+        - type: "speedometer"
+          animated: true
+
+      phases:
+        - name: "setup"
+          description: "Route et voiture"
+          duration: "3s"
+        - name: "motion"
+          description: "Voiture qui roule"
+          duration: "5s"
+        - name: "average"
+          description: "Calcul vitesse moyenne"
+          duration: "4s"
+        - name: "question"
+          description: "Question sur l'instant"
+          duration: "3s"
+
+    transition_out: "fade"
+
+  - id: "graph_introduction"
+    name: "Passage au graphique"
+    type: "animation"
+    content:
+      concept: |
+        Transformer le problème de la voiture en graphique position-temps.
+
+        1. Montrer les axes : x = temps, y = position
+        2. Tracer la courbe de position (parabole car accélération constante)
+        3. La courbe représente s(t) = t²
+        4. Expliquer que la pente = vitesse
+
+      elements:
+        - type: "axes"
+          x_label: "Temps (s)"
+          y_label: "Position (m)"
+          x_range: [0, 5]
+          y_range: [0, 25]
+        - type: "function"
+          expression: "x**2"
+          label: "s(t) = t²"
+          color: "primary"
+
+      phases:
+        - name: "axes"
+          description: "Afficher les axes"
+          duration: "2s"
+        - name: "curve"
+          description: "Tracer la courbe"
+          duration: "3s"
+        - name: "explanation"
+          description: "Lien pente-vitesse"
+          duration: "3s"
+
+    transition_out: "fade"
+
+  # ============================================
+  # CHAPITRE 2 : LA SÉCANTE (90 secondes)
+  # ============================================
+
+  - id: "chapter2_title"
+    name: "Chapitre 2"
+    type: "title_card"
+    duration: "3s"
+    content:
+      title: "2. La Sécante"
+      subtitle: "Approximer le changement"
+      animation: "fade_in"
+    transition_out: "fade"
+
+  - id: "secant_introduction"
+    name: "Introduction de la sécante"
+    type: "animation"
+    content:
+      concept: |
+        Montrer comment une droite sécante mesure le taux de variation moyen.
+
+        Sur la courbe f(x) = x² :
+        1. Marquer deux points : A(1, 1) et B(3, 9)
+        2. Tracer la sécante passant par A et B
+        3. Calculer la pente : (9-1)/(3-1) = 4
+        4. "Cette pente = taux de variation moyen entre t=1 et t=3"
+
+      elements:
+        - type: "axes"
+          x_range: [-0.5, 4]
+          y_range: [-1, 10]
+        - type: "function"
+          expression: "x**2"
+          color: "primary"
+        - type: "point"
+          coords: [1, 1]
+          label: "A"
+          color: "secondary"
+        - type: "point"
+          coords: [3, 9]
+          label: "B"
+          color: "secondary"
+        - type: "line"
+          through: ["A", "B"]
+          color: "accent"
+          label: "Sécante"
+
+      phases:
+        - name: "setup"
+          description: "Courbe et points A, B"
+          duration: "4s"
+        - name: "secant"
+          description: "Tracer la sécante"
+          duration: "3s"
+        - name: "slope"
+          description: "Calculer et afficher la pente"
+          duration: "5s"
+
+    transition_out: "fade"
+
+  - id: "secant_animation"
+    name: "Animation de rapprochement"
+    type: "animation"
+    content:
+      concept: |
+        Animation clé : faire tendre B vers A pour voir la limite.
+
+        1. Point B commence à (3, 9)
+        2. B glisse le long de la courbe vers A
+        3. La sécante pivote autour de A
+        4. Afficher la pente qui change : 4 → 3 → 2.5 → 2.1 → 2.01 → 2
+        5. Quand B arrive sur A, la sécante devient tangente
+        6. "La pente limite = 2 = dérivée en x=1"
+
+        Utiliser ValueTracker pour animer la position de B.
+
+      elements:
+        - type: "axes"
+          x_range: [-0.5, 4]
+          y_range: [-1, 10]
+        - type: "function"
+          expression: "x**2"
+        - type: "point"
+          coords: [1, 1]
+          label: "A"
+          fixed: true
+        - type: "point"
+          label: "B"
+          animated: true
+          path: "along curve from x=3 to x=1.01"
+        - type: "secant_line"
+          animated: true
+        - type: "slope_display"
+          position: "top_right"
+          animated: true
+
+      phases:
+        - name: "initial"
+          description: "Configuration initiale B à x=3"
+          duration: "3s"
+        - name: "approach"
+          description: "B se rapproche de A lentement"
+          duration: "12s"
+        - name: "limit"
+          description: "Afficher la limite"
+          duration: "3s"
+
+    transition_out: "fade"
+
+  # ============================================
+  # CHAPITRE 3 : LA DÉRIVÉE (60 secondes)
+  # ============================================
+
+  - id: "chapter3_title"
+    name: "Chapitre 3"
+    type: "title_card"
+    duration: "3s"
+    content:
+      title: "3. La Dérivée"
+      subtitle: "La pente de la tangente"
+      animation: "fade_in"
+    transition_out: "fade"
+
+  - id: "tangent_definition"
+    name: "Définition de la tangente"
+    type: "animation"
+    content:
+      concept: |
+        Définir formellement la dérivée comme pente de la tangente.
+
+        1. Montrer la courbe f(x) = x²
+        2. Tracer la tangente au point x=1
+        3. Afficher : "f'(1) = 2"
+        4. Montrer la formule : f'(x) = lim[h→0] (f(x+h) - f(x)) / h
+        5. Pour f(x) = x², f'(x) = 2x
+
+      elements:
+        - type: "axes"
+        - type: "function"
+          expression: "x**2"
+        - type: "tangent_line"
+          at: 1
+          color: "accent"
+        - type: "formula"
+          text: "f'(x) = 2x"
+
+    transition_out: "fade"
+
+  - id: "moving_tangent"
+    name: "Tangente mobile"
+    type: "animation"
+    content:
+      concept: |
+        Montrer la tangente qui glisse le long de la courbe.
+
+        1. Tangente à x = -2, pente = -4
+        2. Glisser vers x = 0, pente = 0
+        3. Continuer vers x = 2, pente = 4
+        4. Afficher la pente en temps réel
+        5. Montrer que la pente = 2x à chaque point
+
+      elements:
+        - type: "axes"
+          x_range: [-3, 3]
+          y_range: [-1, 9]
+        - type: "function"
+          expression: "x**2"
+        - type: "tangent_line"
+          animated: true
+          range: [-2, 2]
+        - type: "slope_tracker"
+          formula: "2x"
+
+      phases:
+        - name: "start"
+          description: "Tangente à x=-2"
+          duration: "2s"
+        - name: "slide"
+          description: "Glisser de -2 à 2"
+          duration: "10s"
+        - name: "formula"
+          description: "Afficher f'(x) = 2x"
+          duration: "3s"
+
+    transition_out: "fade"
+
+  # ============================================
+  # CONCLUSION (30 secondes)
+  # ============================================
+
+  - id: "summary"
+    name: "Résumé"
+    type: "summary"
+    duration: "15s"
+    content:
+      title: "À retenir"
+
+      points:
+        - text: "La dérivée mesure le taux de variation instantané"
+          icon: "number"
+          color: "primary"
+        - text: "Géométriquement : c'est la pente de la tangente"
+          icon: "number"
+          color: "secondary"
+        - text: "Se calcule comme limite du taux de variation"
+          icon: "number"
+          color: "accent"
+        - text: "Pour f(x) = x², la dérivée est f'(x) = 2x"
+          icon: "check"
+          color: "positive"
+          highlight: true
+
+      animation: "sequential"
+      delay_between: 2.0
+
+    transition_out: "fade"
+
+  - id: "outro"
+    name: "Conclusion"
+    type: "title_card"
+    duration: "5s"
+    content:
+      title: "Merci !"
+      subtitle: "À bientôt pour la suite : règles de dérivation"
+      animation: "fade_in"
+    transition_out: "fade_to_black"
+
+# ============================================
+# AUDIO (optionnel)
+# ============================================
+
+audio:
+  background_music: null
+  # Si vous avez une musique :
+  # background_music:
+  #   file: "assets/audio/ambient_soft.mp3"
+  #   volume: 0.2
+  #   fade_in: 2.0
+  #   fade_out: 3.0
+
+# ============================================
+# SORTIE
+# ============================================
+
+output:
+  filename: "introduction_derivees"
+  format: "mp4"
+  resolution: "1080p"
+  keep_scenes: true
+  keep_sources: true
+  output_dir: "output"
